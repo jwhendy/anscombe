@@ -1,0 +1,666 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>anscombe</title>
+<!-- 2013-11-03 Sun 13:22 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="John Henderson" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://tinyurl.com/77t76qa" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">anscombe</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+I'm currently enrolled in the <a href="https://www.coursera.org/">Coursera</a> class, <a href="https://www.coursera.org/course/stats1">Statistics One</a>, taught by Professor Andrew
+Conway of Princeton University. Within the first couple of weeks, we learned about
+Pearson's correlation coefficient, r, which can be calculated in a couple of ways. In
+words, the coefficient describes "the variance in x and y together vs. the individual
+variance in x and y separately."
+</p>
+
+<p>
+We also covered some necessary assumptions about the data to be able to rely on the
+calculated coefficient with respect to deriving meaningful interpretations from it. The
+biggies were a normally distributed data set and homoscedasticity (the distance between
+each point a best fit line should not correlate with the x and y points
+themselves). Checking for homoscedasticity pretty easy, at least in obvious cases of not
+meeting this criteria:
+</p>
+
+<ul class="org-ul">
+<li>Create a linear model; the slope of this best fit line will be \(r \times (SD_y/SD_x)\).
+</li>
+<li>Calculate the error between the line's predictions and each y point
+</li>
+<li>Plot the actual x values vs. each point's corresponding error from above
+</li>
+<li>You want a nice, random, scattering of points, equally centered around the line y = 0
+(which means that the average error is 0). If you see the distances growing or shrinking
+as you move left to right, you have some sort of relationship between x and the error,
+indicating that something's not right. 
+</li>
+</ul>
+
+<p>
+To better illustrate violations in the normality and homoscedasticity assumptions,
+Prof. Conway used <a href="http://en.wikipedia.org/wiki/Anscombe's_quartet">Ancsombe's Quartet</a>, which was fascinating to me. Here's an illustration:<sup><a id="fnr.1" name="fnr.1" class="footref" href="#fn.1">1</a></sup>
+</p>
+
+<div class="center">
+
+<div class="figure">
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Anscombe's_quartet_3.svg/800px-Anscombe's_quartet_3.svg.png" alt="800px-Anscombe's_quartet_3.svg.png" width="500px" />
+</p>
+</div>
+</div>
+
+<p>
+The properties are quite intriguing! The mean and variance of both <code>x</code> and <code>y</code>, the
+correlation coefficient (<i>r</i>), and the best fit linear regression line are all the same
+(well, some are exact; others differ by a <i>very slight</i> decimal value).
+</p>
+
+<p>
+I get that the math apparently works out for these points to have the same variance,
+correlation coefficients, and regression line formulas&#x2026; but how?
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Visualiztion -&gt; better understanding</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+I'm a huge fan of data visualization, as well as simply working things out in different
+ways to better comprehend what I'm dealing with. I've used correlation coefficients and
+regression models at work with programs like Minitab as well as R, but this was a
+fantastic opportunity to really understand how it's calculated and what it meant. I
+started by simply going through the math, and then thought it would be fun to visually
+show why Anscombe's Quartet works out how it does. What follows is what I did!
+</p>
+
+<p>
+We want to track the variance between paired x and y values vs. their individual
+variances. For the numerator (paired variance), we want the cross product of x and y
+variance (denoted \(SP_{xy}\); in other words, we want to multiply each individual x
+variance (from the mean) the corresponding y value's variance, and the sum the result,
+which would look like this:
+</p>
+
+<p>
+\[
+\sum_{i=1}^n (x_i - \mu_x) (y_i - \mu_y)
+\]
+</p>
+
+<p>
+In the denominator, we'll have the overall variance in x times the overall variance in y;
+sum of squared error is used, which for x would be:
+</p>
+
+<p>
+\[ SS_x = \sum_{i=1}^n (x - \mu_x)^2 \]
+</p>
+
+<p>
+Now, in the denominator, \(SS_x\) and \(SS_y\) are already squared (so a total effect of
+being on the order of \(x^4\)), while in the numerator, we just have the equivalent of
+\(xy\), so a squared term.Thus, we'll take the square root of the denominator, and end up
+with our final formula for r:
+</p>
+
+<p>
+\[
+\frac{\sum_{i=1}^n (x_i - \mu_x) (y_i - \mu_y)}{\sqrt {\sum_{i=1}^n (x_i - \mu_x)^2
+\sum_{i=1}^n (y_i - \mu_y)^2}}
+\]
+</p>
+
+<p>
+Now, onto the visualizations! First, I wanted to visualize \(SS_x\) and \(SS_y\). R comes
+with Anscombe's data as a built-in object, so I just started with the first set
+(rearranged a bit from it's default format in R), and plotted the points:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="ansc-1-plot-point"><span style="color: #008b8b;">library</span>(reshape2)
+<span style="color: #008b8b;">library</span>(ggplot2)
+
+<span style="color: #b22222;"># </span><span style="color: #b22222;">create a re-arranged data frame from Anscombe's quartet</span>
+data <span style="color: #008b8b;">&lt;-</span> data.frame(x = melt(anscombe[, 1:4])$value)
+data$y <span style="color: #008b8b;">&lt;-</span> melt(anscombe[, 5:8])$value
+data$group <span style="color: #008b8b;">&lt;-</span> factor(rep(c(<span style="color: #8b2252;">"a"</span>, <span style="color: #8b2252;">"b"</span>, <span style="color: #8b2252;">"c"</span>, <span style="color: #8b2252;">"d"</span>), each = nrow(data)/4))
+
+<span style="color: #b22222;"># </span><span style="color: #b22222;">for now, let's just play with the first set</span>
+data_sub <span style="color: #008b8b;">&lt;-</span> data[data$group == <span style="color: #8b2252;">"a"</span>, ]
+
+p <span style="color: #008b8b;">&lt;-</span> ggplot(data_sub, aes(x = x, y = y)) + geom_point()
+p <span style="color: #008b8b;">&lt;-</span> p + scale_x_continuous(limits = c(4, 14)) + scale_y_continuous(limits = c(4, 14))
+p <span style="color: #008b8b;">&lt;-</span> p + theme_bw()
+p
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./ansc-1-point-plot.svg" alt="ansc-1-point-plot.svg" />
+</p>
+</div>
+
+
+<p>
+Next, let's create a plot showing the total variance in <code>x</code> at each point. This will be a
+square with sides of length \(x_i - \mu_x\):
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="ansc-1-x-var">p <span style="color: #008b8b;">&lt;-</span> ggplot(data_sub, aes(x = x, y = y)) + geom_point()
+p <span style="color: #008b8b;">&lt;-</span> p + geom_rect(aes(xmin = x, xmax = mean(data$x), ymin = y,
+                       ymax = y + (x - mean(data$x))),
+                   alpha = 0.24, colour = <span style="color: #8b2252;">"blue"</span>, fill = <span style="color: #8b2252;">"blue"</span>)
+p <span style="color: #008b8b;">&lt;-</span> p + scale_x_continuous(limits = c(-2, 18)) + scale_y_continuous(limits = c(-2, 18))
+p <span style="color: #008b8b;">&lt;-</span> p + theme_bw()
+p
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./ansc-1-x-var.svg" alt="ansc-1-x-var.svg" />
+</p>
+</div>
+
+<p>
+Similarly, we can do the same thing with <code>y</code>:
+</p>
+
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="ansc-1-y-var">p <span style="color: #008b8b;">&lt;-</span> ggplot(data_sub, aes(x = x, y = y)) + geom_point()
+p <span style="color: #008b8b;">&lt;-</span> p + geom_rect(aes(xmin = x, xmax = x + (y - mean(data$y)),
+                       ymin = y, ymax = mean(data$y)),
+                   alpha = 0.24, colour = <span style="color: #8b2252;">"red"</span>, fill = <span style="color: #8b2252;">"red"</span>)
+p <span style="color: #008b8b;">&lt;-</span> p + scale_x_continuous(limits = c(-2, 18)) + scale_y_continuous(limits = c(-2, 18))
+p <span style="color: #008b8b;">&lt;-</span> p + theme_bw()
+p
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./ansc-1-y-var.svg" alt="ansc-1-y-var.svg" />
+</p>
+</div>
+
+<p>
+So var, the boxes have been square, as we simply want to illustrate \((x_i - \mu_x)^2\) (and
+similarly, same for <code>y</code>) for each visualization. When it comes to illustrating the
+covariance, we need the width of each box to be \(x_i - \mu_x\) and the height to be
+\(y_i - \mu_y\). Now we'll end up with areas representing the collective distance from
+<i>both</i> means for each point:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="ansc-1-covar">p <span style="color: #008b8b;">&lt;-</span> ggplot(data_sub, aes(x = x, y = y)) + geom_point()
+p <span style="color: #008b8b;">&lt;-</span> p + geom_rect(aes(xmin = x, xmax = mean(data$x),
+                       ymin = y, ymax = mean(data$y)),
+                   alpha = 0.24, colour = <span style="color: #8b2252;">"black"</span>, fill = <span style="color: #8b2252;">"black"</span>)
+p <span style="color: #008b8b;">&lt;-</span> p + scale_x_continuous(limits = c(-2, 18)) + scale_y_continuous(limits = c(-2, 18))
+p <span style="color: #008b8b;">&lt;-</span> p + theme_bw()
+p
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./ansc-1-covar.svg" alt="ansc-1-covar.svg" />
+</p>
+</div>
+
+<p>
+So, we have all of the individual pieces&#x2026; now how to represent our formula for Pearson's
+correlation coefficient?
+</p>
+
+<p>
+\[
+\frac{\sum_{i=1}^n (x_i - \mu_x) (y_i - \mu_y)}{\sqrt {\sum_{i=1}^n (x_i - \mu_x)^2
+\sum_{i=1}^n (y_i - \mu_y)^2}}
+\]
+</p>
+
+<p>
+The numerator is easy; we already have rectangles representing the area, \((x_i -
+\mu_x)(y_i - \mu_y)\). But&#x2026; we need to somehow multiply our <code>x</code> and <code>y</code> squares (the
+blue and red above) together, and then take the square root. Thinking about how our
+squares are representing the data, we don't really have \((x_i - \mu_x)^2\) to worry
+about, but just \(l_{xi}^2\), where \(l_{xi}\) is the length of each \(x_i - \mu_x\) square's side. Thus, if
+we expand things out a bit, we'll get:
+</p>
+
+<p>
+\[
+\sqrt{(l_{x1}^2 + l_{x2}^2 + ... + l_{xn}^2)(l_{y1}^2 + l_{y2}^2 + ... + l_{yn}^2)}
+\]
+</p>
+
+<p>
+It's a tad tough to square areas and then take the square root, so how could we get a
+general sense for the final ratio of numerator/denominator? What if we combine the summed
+areas into circles? We can figure out what they should be using a little <code>ddply</code> magic
+(<code>plyr</code> package):
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #008b8b;">library</span>(plyr)
+
+mean_x <span style="color: #008b8b;">&lt;-</span> mean(data_sub$x)
+mean_y <span style="color: #008b8b;">&lt;-</span> mean(data_sub$y)
+
+<span style="color: #b22222;"># </span><span style="color: #b22222;">for each pair of x and y, figure out ([x/y]-mean([x/y]))^2 as well as</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">(x-mean(x))(y-mean(y))</span>
+data_sub_sums <span style="color: #008b8b;">&lt;-</span> ddply(data_sub, .(x, y), summarize,
+                       var_x = (x - mean_x)^2,
+                       var_y = (y - mean_y)^2,
+                       cov = (x - mean_x)*(y - mean_y))
+
+sums <span style="color: #008b8b;">&lt;-</span> data.frame(ss_x = sum(data_sub_sums$var_x),
+                   ss_y = sum(data_sub_sums$var_y),
+                   ss_cov = sum(data_sub_sums$cov))
+print(sums)
+</pre>
+</div>
+
+<pre class="example">
+  ss_x     ss_y ss_cov
+1  110 41.27269  55.01
+</pre>
+
+<p>
+We know the regression coefficient for all of Anscombe's data is 0.816. Just to double
+check that we're doing this all correctly:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">sums$ss_cov/sqrt(sums$ss_x * sums$ss_y)
+</pre>
+</div>
+
+<pre class="example">
+[1] 0.8164205
+</pre>
+
+<p>
+Now we know the sum of our areas and can make a little graphic with our friend TikZ!<sup><a id="fnr.2" name="fnr.2" class="footref" href="#fn.2">2</a></sup>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-latex"><span style="color: #a020f0;">\usetikzlibrary</span>{shapes,positioning}
+
+<span style="color: #a020f0;">\begin</span>{<span style="color: #0000ff;">tikzpicture</span>}[every node/.style={draw,thick,circle,inner sep=0pt}, scale = 0.0375]
+
+<span style="color: #a020f0;">\node</span>[minimum size = 55.01, fill=black!30] (cov) at (0,0) {<span style="color: #8b2252;">$SP_{xy}$</span>};
+<span style="color: #a020f0;">\node</span>[minimum size = 110, fill=blue!30, draw=blue] (ss_x) at (-60, -100) {<span style="color: #8b2252;">$SS_x$</span>};
+<span style="color: #a020f0;">\node</span>[minimum size = 41.27269, fill=red!30, draw=red] (ss_y) at (60, -100) {<span style="color: #8b2252;">$SS_y$</span>};
+
+<span style="color: #a020f0;">\draw</span>[ultra thick] (-120,-35)--(120,-35);
+
+<span style="color: #a020f0;">\filldraw</span>[fill=black] (15,-100) circle (100pt);
+
+<span style="color: #a020f0;">\draw</span>[thick] (-150,-140) -- ++(10,-15) -- ++(80:115) --++(220,0);
+
+<span style="color: #a020f0;">\end</span>{<span style="color: #0000ff;">tikzpicture</span>}
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="./circle-fraction.png" alt="circle-fraction.png" />
+</p>
+</div>
+
+
+<p>
+As a side note, why can the correlation coefficient never exceed 1? Re-looking at our
+breakdown of the denominator above, the formula for <i>r</i> using rectangle side lengths in
+full would be:
+</p>
+
+<p>
+\[
+\frac{l_{x1}l_{y1} + l_{x2}l_{y2} + ... + l_{xn}l_{yn}}{\sqrt{(l_{x1}^2 + l_{x2}^2 + ... + l_{xn}^2)(l_{y1}^2 + l_{y2}^2 + ... + l_{yn}^2)}}
+\]
+</p>
+
+<p>
+What if we squared the whole thing to make it easier to work with, and distributed out the result?
+</p>
+
+<p>
+\[
+\left( \frac{l_{x1}l_{y1} + l_{x2}l_{y2} + ... + l_{xn}l_{yn}}{\sqrt{(l_{x1}^2 +
+l_{x2}^2 + ... + l_{xn}^2)(l_{y1}^2 + l_{y2}^2 + ... + l_{yn}^2)}} \right )^2 = 
+\frac{l_{x1}^2l_{y1}^2 + l_{x1}l_{y1}l_{x2}l_{y2} + ... + l_{x1}l_{y1}l_{xn}l_{yn} + ... +
+l_{xn}^2l_{yn}^2}
+{l_{x1}^2l_{y1}^2 + l_{x1}^2l_{y2}^2 + ... + l_{x1}^2l_{yn}^2 + ... + l_{xn}^2l_{yn}^2}
+\]
+</p>
+
+
+<p>
+We can do this with matrix multiplication where for the numerator, we'd add up all the
+values in the following matrix operation:
+</p>
+
+\begin{aligned}
+\begin{bmatrix} l_{x1}l_{y1} \\ \vdots \\ l_{xn}l_{yn} \\ \end{bmatrix} \cdot
+\begin{bmatrix} l_{x1}l_{y1} & \cdots & l_{xn}l_{yn} \\ \end{bmatrix}
+\end{aligned}
+
+<p>
+For the denominator, we'd sum the values in this matrix result:
+</p>
+\begin{aligned}
+\begin{bmatrix} l_{x1}^2 \\ \vdots \\ l_{xn}^2 \\ \end{bmatrix} \cdot
+\begin{bmatrix} l_{x1}^2 & \cdots & l_{xn}^2 \\ \end{bmatrix}
+\end{aligned}
+
+<p>
+In each case, we have a \(11 \times 1\) matrix multiplied by a \(1 \times 11\) matrix,
+ending up with an \(11 \times 11\) resultant matrix (121 total terms!). Interestingly, as you may have
+noticed, we have some duplicate terms in the numerator and denominator. How can we tell
+which will end up bigger? Well, let's just compare "pairs" of terms, simply using terms
+related to \(x_1, x_2, y_1\) and \(y_2\)
+</p>
+
+<p>
+\[
+\frac{l_{x1}^2l_{y1}^2 + l_{x1}l_{y1}l_{x2}l_{y2} + l_{x2}l_{y2}l_{x1}l_{y1} + l_{x2}^2l_{y2}^2}
+{l_{x1}^2l_{y1}^2 + l_{x1}^2l_{y2}^2 + l_{x2}^2l_{y1}^2 + l_{x2}^2l_{y2}^2}
+\]
+</p>
+
+<p>
+We can see that the outer terms are duplicates, so we just need to compare the inner terms
+relating \(x_1\) to \(y_2\) and \(x_2\) to \(y_1\). So, which is bigger (note I've
+rearranged the numerator to be in the order of the denominator's terms)?
+</p>
+
+<p>
+\[
+2(l_{x1}l_{y2}l_{x2}l_{y1}) \qquad \textrm{or} \qquad l_{x1}^2l_{y2}^2  + l_{x2}^2l_{y1}^2
+\quad ?
+\]
+</p>
+
+<p>
+If we use \(A\) and \(B\) to represent \(l_{x1}l_{y2}\) and \(l_{x2}l_{y1}\),
+respectively, this turns into comparing:
+</p>
+
+<p>
+\[
+2(AB) \qquad \textrm{and} \qquad A^2 + B^2
+\]
+</p>
+
+<p>
+Returning to our shape analogies, \(2AB\) represents two rectangles added together, and \(A^2 + B^2\)
+represents adding two squares together, who's sides are the same length as the
+rectangle's. Let's say the mean of <code>x</code> and <code>y</code> are both zero and we zoom in on one point
+to see how this works:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R" id="rect-square">rect_square <span style="color: #008b8b;">&lt;-</span> data.frame(x = 1, y = 2)
+
+p <span style="color: #008b8b;">&lt;-</span> ggplot(rect_square, aes(x = x, y = y))
+p <span style="color: #008b8b;">&lt;-</span> p + geom_rect(aes(xmin = x, xmax = 0,
+                       ymin = y, ymax = 0),
+                   alpha = 0.24, colour = <span style="color: #8b2252;">"black"</span>, fill = <span style="color: #8b2252;">"black"</span>)
+p <span style="color: #008b8b;">&lt;-</span> p + geom_rect(aes(xmin = x, xmax = 0,
+                       ymin = y, ymax = y + x),
+                   alpha = 0.24, colour = <span style="color: #8b2252;">"blue"</span>, fill = <span style="color: #8b2252;">"blue"</span>)
+p <span style="color: #008b8b;">&lt;-</span> p + geom_rect(aes(xmin = x, xmax = x + y,
+                       ymin = y, ymax = 0),
+                   alpha = 0.24, colour = <span style="color: #8b2252;">"red"</span>, fill = <span style="color: #8b2252;">"red"</span>)
+p <span style="color: #008b8b;">&lt;-</span> p + geom_point(size = 4)
+p <span style="color: #008b8b;">&lt;-</span> p + geom_hline(yintercept = 0, linetype = 2) + geom_vline(xintercept = 0, linetype = 2)
+
+p <span style="color: #008b8b;">&lt;-</span> p + theme_bw()
+p
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="rect-square.svg" alt="rect-square.svg" />
+</p>
+</div>
+
+<p>
+So, we're trying to compare twice the area of the gray rectangle to the combined area of
+the red and blue squares. Perhaps you can already see what will happen? At present, the
+gray area has a width of 1 and height of 2. If we had two of them, it would match the red
+area&#x2026; but we're compareing the gray area to the red <i>plus</i> the blue, so the denominator
+of \(A^2 + B^2\) would still be bigger. We could keep increasing the rectangle's width,
+but then the blue area would grow as well.
+</p>
+
+<p>
+The <i>best</i> we could ever do is to have a gray area whose width is equal to the width of
+the red area (which would make the gray area a square). In that case, the blue square
+would also have the same width, and we'd be comparing twice the area of the gray square to the
+sum of two identically sized squares (red and blue)!
+</p>
+
+<p>
+Thus, Pearson's correlation coefficient can only ever read 1 at it's maximum, and that's
+why. The best you can so is have <code>x</code> and <code>y</code>, on average, vary <i>together</i> in the same
+proportion that they vary <i>individually</i>.
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" name="fn.1" class="footnum" href="#fnr.1">1</a></sup> <p class="footpara">
+Source: Wikipedia, <i>Anscombe's Quartet</i>. <a href="http://en.wikipedia.org/wiki/Anscombe's_quartet">http://en.wikipedia.org/wiki/Anscombe's_quartet</a>
+</p></div>
+
+<div class="footdef"><sup><a id="fn.2" name="fn.2" class="footnum" href="#fnr.2">2</a></sup> <p class="footpara">
+PGF and TikZ on SourceForge: <a href="http://sourceforge.net/projects/pgf/">http://sourceforge.net/projects/pgf/</a>
+</p></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="author">Author: John Henderson</p>
+<p class="date">Created: 2013-11-03 Sun 13:22</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.1)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
